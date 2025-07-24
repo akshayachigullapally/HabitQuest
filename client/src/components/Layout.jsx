@@ -1,37 +1,18 @@
 
 import React from 'react';
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
-import Sidebar from './Sidebar';
 
-const Layout = ({ toggleDarkMode, isDarkMode }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-  
+const Layout = () => {
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar 
-        isOpen={isSidebarOpen} 
-        onClose={() => setIsSidebarOpen(false)}
-        toggleDarkMode={toggleDarkMode}
-        isDarkMode={isDarkMode}
-      />
+    <div className="flex flex-col min-h-screen">
+      <Header />
       
-      {/* Main content */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <Header onMenuClick={toggleSidebar} />
-        
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
-          <div className="container mx-auto max-w-6xl">
-            <Outlet />
-          </div>
-        </main>
-      </div>
+      <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto max-w-6xl p-4 md:p-6">
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 };
