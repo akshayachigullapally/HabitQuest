@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import Footer from './Footer';
 
 const Layout = ({ toggleDarkMode, isDarkMode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,8 +31,6 @@ const Layout = ({ toggleDarkMode, isDarkMode }) => {
             <Outlet />
           </div>
         </main>
-        
-        <Footer />
       </div>
     </div>
   );

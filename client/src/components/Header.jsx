@@ -43,8 +43,8 @@ const Header = ({ onMenuClick }) => {
               </svg>
             </button>
             
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0 flex items-center">
+            {/* Logo - moved right to avoid sidebar overlap */}
+            <Link to="/" className="flex-shrink-0 flex items-center lg:ml-12">
               <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">HabitQuest</h1>
             </Link>
           </div>

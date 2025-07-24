@@ -276,11 +276,11 @@ const Sidebar = ({ isOpen, onClose }) => {
       )}
     
       {/* Sidebar */}
-      <div className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-xl z-30 transition-all duration-300 transform 
+      <div className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-xl z-40 transition-all duration-300 transform 
         ${isCollapsed ? 'w-16' : 'w-64'} 
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
-        {/* Close button at the top */}
+        {/* Close button for mobile */}
         <div className="absolute top-2 right-2 lg:hidden">
           <button 
             onClick={onClose} 
@@ -291,35 +291,49 @@ const Sidebar = ({ isOpen, onClose }) => {
           </button>
         </div>
         
-        {/* Collapse toggle button */}
-        <div className="absolute top-2 right-2 hidden lg:block">
-          <button 
-            onClick={toggleCollapse} 
-            className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300"
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {isCollapsed ? <FaChevronRight size={16} /> : <FaChevronLeft size={16} />}
-          </button>
-        </div>
-        
-        {/* Sidebar header with logo */}
-        <div className="flex justify-center items-center p-4 border-b border-gray-200 dark:border-gray-700">
+        {/* Sidebar header with logo and collapse button */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           {isCollapsed ? (
-            <h2 className="text-xl font-bold text-blue-600 dark:text-blue-400">HQ</h2>
+            <h2 className="text-xl font-bold text-blue-600 dark:text-blue-400 mx-auto">HQ</h2>
           ) : (
-            <h2 className="text-xl font-bold text-blue-600 dark:text-blue-400">HabitQuest</h2>
+            <>
+              <h2 className="text-xl font-bold text-blue-600 dark:text-blue-400">HabitQuest</h2>
+              {/* Collapse toggle button - only visible when expanded */}
+              <button 
+                onClick={toggleCollapse} 
+                className="p-1.5 rounded-md text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300 transition-colors duration-200 hidden lg:block"
+                aria-label="Collapse sidebar"
+              >
+                <FaChevronLeft size={14} />
+              </button>
+            </>
+          )}
+          
+          {/* Expand button for collapsed state */}
+          {isCollapsed && (
+            <button 
+              onClick={toggleCollapse} 
+              className="absolute -right-3 top-1/2 transform -translate-y-1/2 p-1.5 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-110 hidden lg:block"
+              aria-label="Expand sidebar"
+            >
+              <FaChevronRight size={12} />
+            </button>
           )}
         </div>
         
         {/* User info */}
         <div className={`p-4 border-b border-gray-200 dark:border-gray-700 ${isCollapsed ? 'flex justify-center' : ''}`}>
           {isCollapsed ? (
-            <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white">
+            <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white relative group">
               {user?.avatar ? (
                 <img src={user.avatar} alt={user.username} className="w-10 h-10 rounded-full" />
               ) : (
                 <span className="text-lg font-bold">{user?.username?.[0]?.toUpperCase() || 'U'}</span>
               )}
+              {/* Tooltip for collapsed user info */}
+              <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                {user?.username || 'User'} - Level {user?.level || 1}
+              </div>
             </div>
           ) : (
             <>
@@ -352,73 +366,91 @@ const Sidebar = ({ isOpen, onClose }) => {
               </div>
             </>
           )}
-        </div>
-        
-        {/* Navigation */}
+        </div>        {/* Navigation */}
         <nav className="px-2 py-4">
           <ul className="space-y-1">
             <li>
               <NavLink
                 to="/dashboard"
                 className={({ isActive }) => `
-                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md
+                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md relative group
                   ${isActive 
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' 
                     : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'}
                   ${isCollapsed ? 'justify-center' : ''}
                 `}
-                title="Dashboard"
+                title={isCollapsed ? "Dashboard" : ""}
               >
                 <FaHome className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'}`} />
                 {!isCollapsed && "Dashboard"}
+                {isCollapsed && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                    Dashboard
+                  </div>
+                )}
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/community"
                 className={({ isActive }) => `
-                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md
+                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md relative group
                   ${isActive 
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' 
                     : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'}
                   ${isCollapsed ? 'justify-center' : ''}
                 `}
-                title="Community"
+                title={isCollapsed ? "Community" : ""}
               >
                 <FaUsers className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'}`} />
                 {!isCollapsed && "Community"}
+                {isCollapsed && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                    Community
+                  </div>
+                )}
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/profile"
                 className={({ isActive }) => `
-                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md
+                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md relative group
                   ${isActive 
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' 
                     : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'}
                   ${isCollapsed ? 'justify-center' : ''}
                 `}
-                title="Profile"
+                title={isCollapsed ? "Profile" : ""}
               >
                 <FaUser className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'}`} />
                 {!isCollapsed && "Profile"}
+                {isCollapsed && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                    Profile
+                  </div>
+                )}
               </NavLink>
             </li>
             <li>
               <NavLink
                 to="/settings"
                 className={({ isActive }) => `
-                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md
+                  flex items-center px-4 py-2.5 text-sm font-medium rounded-md relative group
                   ${isActive 
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-200' 
                     : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'}
                   ${isCollapsed ? 'justify-center' : ''}
                 `}
-                title="Settings"
+                title={isCollapsed ? "Settings" : ""}
               >
                 <FaCog className={`w-5 h-5 ${isCollapsed ? '' : 'mr-3'}`} />
                 {!isCollapsed && "Settings"}
+                {isCollapsed && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+                    Settings
+                  </div>
+                )}
               </NavLink>
             </li>
           </ul>

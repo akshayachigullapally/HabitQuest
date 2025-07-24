@@ -31,7 +31,7 @@ const PublicLayout = () => {
         </div>
       </header>
 
-      <main className="flex-grow">
+      <main className="flex-1">
         <Outlet />
       </main>
       
