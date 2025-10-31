@@ -85,37 +85,42 @@ const Landing = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-500 to-purple-600 text-white py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-                Transform Your Habits, Level Up Your Life
+      <section 
+        className="relative text-white py-16 px-4 min-h-[70vh] flex items-center"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Blurred overlay */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+        
+        <div className="container mx-auto max-w-6xl relative z-10">
+          <div className="flex justify-center">
+            <div className="text-center max-w-5xl">
+              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                <span className="block whitespace-nowrap">Transform Your Habits</span>
+                <span className="block whitespace-nowrap">Level Up Your Life</span>
               </h1>
-              <p className="text-lg md:text-xl mb-8 text-blue-100">
+              <p className="text-lg md:text-2xl mb-8 text-gray-100 drop-shadow-md max-w-3xl mx-auto">
                 The gamified habit tracker that helps you build consistent habits through rewards, achievements, and community support.
               </p>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <Link 
                   to="/register" 
-                  className="inline-flex justify-center items-center px-6 py-3 bg-white text-blue-600 font-medium rounded-md hover:bg-blue-50 transition shadow-lg"
+                  className="inline-flex justify-center items-center px-8 py-4 bg-white text-blue-600 font-semibold text-lg rounded-lg hover:bg-blue-50 transition shadow-xl transform hover:scale-105"
                 >
                   Get Started Free
                 </Link>
                 <Link 
                   to="/login" 
-                  className="inline-flex justify-center items-center px-6 py-3 bg-blue-700 text-white font-medium rounded-md hover:bg-blue-800 transition border border-blue-400"
+                  className="inline-flex justify-center items-center px-8 py-4 bg-blue-600/80 backdrop-blur-sm text-white font-semibold text-lg rounded-lg hover:bg-blue-700/80 transition border-2 border-white/30 shadow-xl transform hover:scale-105"
                 >
                   Log In
                 </Link>
               </div>
-            </div>
-            <div className="md:w-1/2 flex justify-center">
-              <img 
-                src="https://placehold.co/600x400/2563eb/FFFFFF/png?text=HabitQuest+Dashboard&font=Montserrat" 
-                alt="HabitQuest App Screenshot" 
-                className="rounded-lg shadow-2xl max-w-full h-auto border-4 border-white/20" 
-              />
             </div>
           </div>
         </div>
@@ -207,22 +212,33 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
-        <div className="container mx-auto max-w-6xl text-center">
+      <section 
+        className="relative py-16 px-4 text-white"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Blurred overlay */}
+        <div className="absolute inset-0 bg-blue-900/60 backdrop-blur-sm"></div>
+        
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Habits?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-blue-100">
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-100 drop-shadow-md">
             Join HabitQuest today and start building the habits that will help you achieve your goals.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             <Link 
               to="/register" 
-              className="inline-flex justify-center items-center px-6 py-3 bg-white text-blue-600 font-medium rounded-md hover:bg-blue-50 transition shadow-lg"
+              className="inline-flex justify-center items-center px-8 py-4 bg-white text-blue-600 font-semibold text-lg rounded-lg hover:bg-blue-50 transition shadow-xl transform hover:scale-105"
             >
               <FaRocket className="mr-2" /> Get Started Free
             </Link>
             <Link 
               to="/login" 
-              className="inline-flex justify-center items-center px-6 py-3 bg-blue-700 text-white font-medium rounded-md hover:bg-blue-800 transition border border-blue-400"
+              className="inline-flex justify-center items-center px-8 py-4 bg-blue-600/80 backdrop-blur-sm text-white font-semibold text-lg rounded-lg hover:bg-blue-700/80 transition border-2 border-white/30 shadow-xl transform hover:scale-105"
             >
               Already have an account? Log In
             </Link>
